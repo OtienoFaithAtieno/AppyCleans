@@ -1,0 +1,10 @@
+{% extends 'services/base.html' %}
+{% block title %}Message Sent | Appycleans{% endblock %}
+
+{% block content %}
+<div class="contact-success">
+  <h2>Thank You!</h2>
+  <p>Your message has been sent successfully. We’ll get back to you shortly.</p>
+  <a href="{% url 'landing' %}" class="btn-submit">Back to Home</a>
+</div>
+{% endblock %}

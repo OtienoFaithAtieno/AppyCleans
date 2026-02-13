@@ -1,0 +1,12 @@
+{% extends 'services/base.html' %}
+{% block title %}Contact Us | Appycleans{% endblock %}
+
+{% block content %}
+<h2 class="contact-title">Contact Us</h2>
+
+<form method="post" class="contact-form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn-submit">Send Message</button>
+</form>
+{% endblock %}

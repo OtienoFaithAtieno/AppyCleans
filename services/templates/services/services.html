@@ -1,0 +1,25 @@
+{% extends 'services/base.html' %}
+{% load static %}
+
+{% block title %}Our Services | Appycleans{% endblock %}
+
+{% block content %}
+<section class="services-section">
+    <h1>Our Professional Cleaning Services</h1>
+    <div class="services-grid">
+        {% for service in services %}
+        <div class="service-card">
+            {% if service.image %}
+                <img src="{{ service.image.url }}" alt="{{ service.name }}">
+            {% else %}
+                <img src="{% static 'images/cleanHouse.jpg' %}" alt="{{ service.name }}">
+            {% endif %}
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            <p class="price">Price: ${{ service.price }}</p>
+            <a href="{% url 'booking' %}?service={{ service.id }}" class="btn-book">Book Now</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

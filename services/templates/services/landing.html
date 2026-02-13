@@ -1,0 +1,23 @@
+{% extends 'services/base.html' %}
+{% block title %}Home | Appycleans{% endblock %}
+{% block content %}
+
+<header style="background: linear-gradient(to right, #87CEEB, #E6E6FA); text-align:center; padding: 80px 20px; color: white;">
+  <h1 style="font-size:48px;">Welcome to Appycleans</h1>
+  <p style="font-size:18px;">Laundry • House Cleaning • Pest Control</p>
+  <a href="/services/" style="background:white; color:#87CEEB; padding:10px 25px; border-radius:8px; text-decoration:none; font-weight:600;">View Our Services</a>
+</header>
+
+<section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; padding:40px;">
+  {% for service in services %}
+  <div class="service-card">
+    <h2>{{ service.name }}</h2>
+    <p>{{ service.description }}</p>
+    <p><strong>${{ service.price }}</strong></p>
+  </div>
+  {% empty %}
+  <p>No services available yet.</p>
+  {% endfor %}
+</section>
+
+{% endblock %}
