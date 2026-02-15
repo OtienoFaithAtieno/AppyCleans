@@ -1,9 +1,10 @@
-# Create your views here.
+
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service, Booking
 from .forms import BookingForm
 from .forms import ContactForm
+from django.contrib import messages
 
 def landing(request):
     services = Service.objects.all()
@@ -42,6 +43,48 @@ def booking_page(request):
 def booking_history(request):
     bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'services/bookingHistory.html', {'bookings': bookings})
+
+
+@login_required
+def cancel_booking(request, booking_id):
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id,
+        user=request.user
+    )
+
+    if booking.status in ['completed', 'cancelled']:
+        messages.error(request, "This booking cannot be cancelled.")
+    else:
+        booking.status = 'cancelled'
+        booking.save()
+        messages.success(request, "Booking cancelled successfully.")
+
+    return redirect('booking_history')
+
+
+@login_required
+def reschedule_booking(request, booking_id):
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id,
+        user=request.user
+    )
+
+    if booking.status in ['completed', 'cancelled']:
+        messages.error(request, "This booking cannot be modified.")
+        return redirect('booking_history')
+
+    if request.method == "POST":
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Booking rescheduled successfully.")
+            return redirect('booking_history')
+    else:
+        form = BookingForm(instance=booking)
+
+    return render(request, 'services/reschedule.html', {'form': form})
 
 
 

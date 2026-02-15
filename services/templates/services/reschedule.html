@@ -1,0 +1,12 @@
+{% extends 'services/base.html' %}
+{% block title %}Reschedule Booking{% endblock %}
+
+{% block content %}
+<h2>Reschedule Booking</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-submit">Update Booking</button>
+</form>
+{% endblock %}

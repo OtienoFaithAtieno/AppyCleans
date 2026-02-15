@@ -21,6 +21,15 @@
       <td>{{ booking.time }}</td>
       <td class="status {{ booking.status }}">{{ booking.get_status_display|capfirst }}</td>
       <td>{{ booking.created_at|date:"M d, Y" }}</td>
+      <td>
+        {% if booking.status != 'completed' and booking.status != 'cancelled' %}
+            <a href="{% url 'reschedule_booking' booking.id %}" class="btn-small">Reschedule</a>
+            <a href="{% url 'cancel_booking' booking.id %}" class="btn-small danger">Cancel</a>
+        {% else %}
+            —
+        {% endif %}
+      </td>
+    
     </tr>
     {% endfor %}
   </table>

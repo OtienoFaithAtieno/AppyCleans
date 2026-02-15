@@ -345,3 +345,7 @@ body {
   color: #777;
 }
 
+/*styling for messages after booking*/
+.alert.success { color: rgb(0, 74, 0); font-weight: bold; }
+.alert.error { color: rgb(223, 2, 2); font-weight: bold; }
+
