@@ -1,3 +1,4 @@
+# user is logged out if their account is inactive for a particular period of time
 from django.conf import settings
 from django.contrib.auth import logout
 from django.utils import timezone
