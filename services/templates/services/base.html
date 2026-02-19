@@ -18,6 +18,8 @@
       <li><a href="{% url 'contact' %}">Contact</a></li>
   
       {% if user.is_authenticated %}
+        <li><a href="{% url 'schedule_pickup' %}">Pickup</a></li>
+        <li><a href="{% url 'request_delivery' %}">Delivery</a></li>
         <li><a href="{% url 'booking_history' %}">My Bookings</a></li>
         <li class="nav-user">Hi, {{ user.username }}</li>
         <li><a href="{% url 'logout' %}">Logout</a></li>

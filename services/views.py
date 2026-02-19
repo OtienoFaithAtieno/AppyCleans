@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service, Booking
-from .forms import BookingForm
+from .forms import BookingForm, LaundryPickupForm, DeliveryRequestForm
 from .forms import ContactForm
 from django.contrib import messages
 
@@ -98,3 +98,33 @@ def contact_page(request):
         form = ContactForm()
 
     return render(request, 'services/contact.html', {'form': form})
+
+
+@login_required
+def schedule_pickup(request):
+    if request.method == "POST":
+        form = LaundryPickupForm(request.POST)
+        if form.is_valid():
+            pickup = form.save(commit=False)
+            pickup.user = request.user
+            pickup.save()
+            return redirect("booking_history")
+    else:
+        form = LaundryPickupForm()
+
+    return render(request, "services/schedule_pickup.html", {"form": form})
+
+
+@login_required
+def request_delivery(request):
+    if request.method == "POST":
+        form = DeliveryRequestForm(request.POST)
+        if form.is_valid():
+            delivery = form.save(commit=False)
+            delivery.user = request.user
+            delivery.save()
+            return redirect("booking_history")
+    else:
+        form = DeliveryRequestForm()
+
+    return render(request, "services/request_delivery.html", {"form": form})

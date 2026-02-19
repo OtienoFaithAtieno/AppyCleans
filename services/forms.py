@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Booking
+from .models import Booking, DeliveryRequest, LaundryPickup
 from .models import Contact
 from django.utils import timezone
 
@@ -91,4 +91,24 @@ class ContactForm(forms.ModelForm):
         fields = ['name', 'email', 'subject', 'message']
         widgets = {
             'message': forms.Textarea(attrs={'rows': 4}),
+        }
+
+
+class LaundryPickupForm(forms.ModelForm):
+    class Meta:
+        model = LaundryPickup
+        fields = ['address', 'pickup_date', 'pickup_time', 'special_instructions']
+        widgets = {
+            'pickup_date': forms.DateInput(attrs={'type': 'date'}),
+            'pickup_time': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
+
+class DeliveryRequestForm(forms.ModelForm):
+    class Meta:
+        model = DeliveryRequest
+        fields = ['pickup_address', 'delivery_address', 'delivery_date', 'delivery_time', 'notes']
+        widgets = {
+            'delivery_date': forms.DateInput(attrs={'type': 'date'}),
+            'delivery_time': forms.TimeInput(attrs={'type': 'time'}),
         }

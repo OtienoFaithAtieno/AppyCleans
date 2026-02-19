@@ -1,9 +1,11 @@
-# Register your models here.
+# Register your models here so the admin can view them on the admin panel
 from django.contrib import admin
-from .models import Service, Booking, Contact
+from .models import Service, Booking, Contact, LaundryPickup, DeliveryRequest
 from django.utils.html import format_html
 
 admin.site.register(Service)
+admin.site.register(LaundryPickup)
+admin.site.register(DeliveryRequest)
 #admin.site.register(Booking)
 
 @admin.register(Contact)

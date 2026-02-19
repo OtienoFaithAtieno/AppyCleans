@@ -24,6 +24,54 @@ LOCK_TIME = 1800  # 30 minutes (seconds)
 
 
 def custom_login(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+
+        lock_key = f"lock_{username}"
+        attempts_key = f"attempts_{username}"
+
+        # Checks if the account is locked
+        lock_time = cache.get(lock_key)
+        if lock_time:
+            remaining = int((lock_time - timezone.now()).total_seconds() / 60)
+            messages.error(
+                request,
+                f"Account locked. Try again in {remaining} minutes."
+            )
+            return render(request, "users/login.html", {"form": form})
+
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            cache.delete(attempts_key)
+            return redirect("landing")
+        else:
+            attempts = cache.get(attempts_key, 0) + 1
+            cache.set(attempts_key, attempts, timeout=LOCK_TIME)
+
+            if attempts >= MAX_ATTEMPTS:
+                lock_until = timezone.now() + timedelta(seconds=LOCK_TIME)
+                cache.set(lock_key, lock_until, timeout=LOCK_TIME)
+                messages.error(
+                    request,
+                    "Too many failed attempts. Account locked for 30 minutes."
+                )
+            else:
+                messages.error(
+                    request,
+                    f"Invalid credentials. Attempt {attempts}/{MAX_ATTEMPTS}"
+                )
+
+            # IMPORTANT: return after handling failed login
+            return render(request, "users/login.html", {"form": form})
+
+    #  ALWAYS return on GET
+    return render(request, "users/login.html", {"form": form})
+
+
+"""def custom_login(request):
     
    form = AuthenticationForm(request, data=request.POST or None)
        
@@ -62,7 +110,7 @@ def custom_login(request):
                     f"Invalid credentials. Attempt {attempts}/{MAX_ATTEMPTS}"
                 )
 
-        return render(request, "users/login.html", {"form": form})
+        return render(request, "users/login.html", {"form": form})"""
 
 #the code below was only perfoming normal authentication 
 """def login_view(request):

@@ -11,5 +11,6 @@ urlpatterns = [
     path('booking/history', views.booking_history, name='booking_history'),
     path('booking/<int:booking_id>/cancel/', views.cancel_booking, name='cancel_booking'),
     path('booking/<int:booking_id>/reschedule/', views.reschedule_booking, name='reschedule_booking'),
- 
+    path('pickup/', views.schedule_pickup, name='schedule_pickup'),
+    path('delivery/', views.request_delivery, name='request_delivery'),
 ]
