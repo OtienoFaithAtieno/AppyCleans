@@ -2,35 +2,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}Appycleans{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'services/style.css' %}">
+<meta charset="UTF-8">
+<title>{% block title %}Appycleans{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'services/style.css' %}">
 </head>
+
 <body>
- 
-  <nav class="navbar">
-    <div class="nav-logo">
-      <a href="{% url 'landing' %}">Appycleans</a>
-    </div>
-  
-    <ul class="nav-links">
-      <li><a href="{% url 'services' %}">Services</a></li>
-      <li><a href="{% url 'contact' %}">Contact</a></li>
-  
-      {% if user.is_authenticated %}
-        <li><a href="{% url 'schedule_pickup' %}">Pickup</a></li>
-        <li><a href="{% url 'request_delivery' %}">Delivery</a></li>
-        <li><a href="{% url 'booking_history' %}">My Bookings</a></li>
-        <li class="nav-user">Hi, {{ user.username }}</li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-      {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'signup' %}" class="nav-btn">Sign Up</a></li>
-      {% endif %}
-    </ul>
-  </nav>
-  
-  <main>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<a href="{% url 'landing' %}" class="logo">Appycleans</a>
+
+<ul class="nav-links">
+<li><a href="{% url 'services' %}">Services</a></li>
+<li><a href="{% url 'contact' %}">Contact</a></li>
+
+{% if user.is_authenticated %}
+<li><a href="{% url 'schedule_pickup' %}">Pickup</a></li>
+<li><a href="{% url 'request_delivery' %}">Delivery</a></li>
+<li><a href="{% url 'booking_history' %}">My Bookings</a></li>
+<li class="nav-user">Hi, {{ user.username }}</li>
+<li><a href="{% url 'logout' %}">Logout</a></li>
+{% else %}
+<li><a href="{% url 'login' %}">Login</a></li>
+<li><a href="{% url 'signup' %}">Sign Up</a></li>
+{% endif %}
+
+</ul>
+
+</nav>
+
+<!-- HERO SECTION (Landing Page Only) -->
+
+{% if request.path == "/" %}
+
+<section class="hero">
+
+<div class="hero-text">
+
+<h1>
+The best laundry services in
+<span>Nairobi, Kenya</span>
+</h1>
+
+<p>
+Professional laundry, cleaning, pest control, pickup and delivery services
+designed for convenience.
+</p>
+
+<a href="{% url 'booking' %}" class="btn-primary">Book Service</a>
+<a href="{% url 'services' %}" class="btn-secondary">Learn More</a>
+
+</div>
+
+<div class="hero-image">
+<img src="../static/images/image3.jpg" alt="Laundry">
+</div>
+
+</section>
+
+{% endif %}
+
+<!-- PAGE CONTENT -->
+<section>
+ <main>
 
     {% if messages %}
       {% for message in messages %}
@@ -42,6 +79,7 @@
 
     {% block content %}{% endblock %}
   </main>
+</section>
 
   <footer>
     © 2025 Appycleans — Clean homes, clean lives 

@@ -1,9 +1,9 @@
 /* === GLOBAL === */
 body {
     margin: 0;
-    background-color: rgb(218, 216, 216);
-    font-family: 'Poppins', sans-serif;
-    color: #333;
+    background:#f8fbff;
+    font-family: Arial, Helvetica, sans-serif;
+   /* color: #333;*/
   }
   
  /* === NAVBAR === */
@@ -11,28 +11,36 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
-  background-color: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 18px 60px;
+  background:linear-gradient(90deg,#7ec8ff,#a88cff);
+  /*box-shadow: 0 2px 6px rgba(0,0,0,0.1);*/
+  color:white;
 }
 
-.nav-logo a {
+/*.logo a {
   font-size: 1.6em;
   font-weight: bold;
-  color: #87CEEB;
+  color: #87CEEBwhite;
   text-decoration: none;
+}*/
+
+.logo{
+    font-size:50px;
+    font-weight:bold;
+    text-decoration:none;
+    color:white;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 .nav-links li a {
   text-decoration: none;
-  color: #444;
+  color:/* #444*/white;
   font-weight: 500;
 }
 
@@ -56,6 +64,65 @@ body {
   color: #6A5ACD;
 }
 
+/*== HERO SECTION== */
+
+.hero{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px 100px;
+}
+
+.hero-text{
+    max-width:500px;
+}
+
+.hero-text h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.hero-text span{
+    color:#6b8cff;
+}
+
+.hero-text p{
+    color:#555;
+    margin-bottom:25px;
+}
+
+/* BUTTONS */
+
+.btn-primary{
+    background:#5b8cff;
+    color:white;
+    padding:12px 25px;
+    border-radius:25px;
+    text-decoration:none;
+    margin-right:10px;
+}
+
+.btn-secondary{
+    background:#e9f0ff;
+    padding:12px 25px;
+    border-radius:25px;
+    text-decoration:none;
+    color:#5b8cff;
+}
+
+/* HERO IMAGE */
+
+.hero img{
+    width:400px;
+    border-radius:12px;
+}
+
+/* MAIN CONTENT 
+
+.container{
+    padding:40px 80px;
+}
+*/
   
   /* === FOOTER === */
   footer {
@@ -68,7 +135,7 @@ body {
   
   /* === PAGE LAYOUT === */
   main {
-    padding: 20px;
+    padding: 40px 80px;
   }
   
   /* === SERVICE CARDS === */
